@@ -7,9 +7,10 @@ $aModule = array(
     'version'      => '2.0.0',
     'author'       => 'Sashko Pejovski',
     'extend' => array(
-        \OxidEsales\Eshop\Application\Model\Article::class => \OxidEsales\LoggerDemo\Model\Article::class
+        \OxidEsales\Eshop\Application\Model\Article::class => \OxidEsales\CustomPriceReduction\Model\Article::class
     ),
         'events'     => array(
-            'onActivate' => '\OxidEsales\CustomPriceReduction\Model\Article::onActivate'
+            'onActivate' => '\OxidEsales\CustomPriceReduction\Model\Article::onActivate',
+            'onDeactivate' => '\OxidEsales\CustomPriceReduction\Model\Article::onDeactivate'
     ),
 );
