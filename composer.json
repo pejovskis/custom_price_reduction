@@ -1,0 +1,19 @@
+{
+  "name": "pejovski/custom-price-reduction",
+  "description": "Custom Price Reduction Module",
+  "type": "oxideshop-module",
+  "authors": [
+    {
+      "name": "Pejovski",
+      "email": "pejovski2@gmail.com"
+    }
+  ],
+  "require": {
+    "oxid-esales/oxideshop-ce": "^v7.0.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "CustomPriceReduction\\": "models/"
+    }
+  }
+}
