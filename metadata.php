@@ -10,6 +10,6 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\Article::class => \OxidEsales\LoggerDemo\Model\Article::class
     ),
         'events'     => array(
-            'onActivate' => '\custom_price_reduction\Models\Article::onActivate'
+            'onActivate' => '\OxidEsales\CustomPriceReduction\Models\Article::onActivate'
     ),
 );
