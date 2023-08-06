@@ -4,12 +4,12 @@ $aModule = array(
     'id'           => 'custom_price_reduction',
     'title'        => 'Custom Price Reduction Plugin',
     'description'  => 'Applies a 10% price reduction to a specific product.',
-    'version'      => '1.0',
+    'version'      => '2.0.0',
     'author'       => 'Sashko Pejovski',
-    'extend'       => array(
-        \OxidEsales\Eshop\Application\Model\Article::class => 'custom_price_reduction/models/Article',
+    'extend' => array(
+        \OxidEsales\Eshop\Application\Model\Article::class => \OxidEsales\LoggerDemo\Model\Article::class
     ),
-    'events'       => array(
-        'onActivate' => '\CustomPriceReduction\Models\Article::onActivate'
+        'events'     => array(
+            'onActivate' => '\custom_price_reduction\Models\Article::onActivate'
     ),
 );

@@ -1,5 +1,5 @@
 {
-  "name": "pejovski/custom-price-reduction",
+  "name": "oxid-esales/custom-price-reduction",
   "description": "Custom Price Reduction Module",
   "type": "oxideshop-module",
   "authors": [
@@ -13,7 +13,9 @@
   },
   "autoload": {
     "psr-4": {
-      "CustomPriceReduction\\": "models/"
+      "OxidEsales\\CustomPriceReduction\\": ""
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
