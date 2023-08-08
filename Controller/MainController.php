@@ -54,6 +54,7 @@ class MainController
         $product->save();
     }
 
+    // This one is from 6.0 ! -> Should be used the Factory Container -> Look it up in the 7.0 Version Docu, by searching Database
     // Get the Artnum from the DB
     public static function getProductIdByArtNum($artNum) : ?string {
         $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
