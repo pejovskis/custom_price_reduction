@@ -3,7 +3,7 @@ $sMetadataVersion = '2.0';
 $aModule = array(
     'id'           => 'custom_price_reduction',
     'title'        => 'Custom Price Reduction Plugin',
-    'description'  => 'Applies a 10% price reduction to a specific product.',
+    'description'  => 'Applies a X price reduction to a specific product.',
     'version'      => '2.0.0',
     'author'       => 'Sashko Pejovski',
     'extend' => array(
@@ -17,20 +17,20 @@ $aModule = array(
     'settings' => array(
         array(
             'group' => 'custom_reduction_price_settings',
-            'name'  => 'sReducedProductArtNum',
+            'name'  => 'sCustomPriceReductionModule',
             'type'  => 'str',
-            'value' => '',
+            'value' => 'Artikel Nummer',
             'position' => 0,
         ),
         array(
             'group' => 'custom_reduction_price_settings',
-            'name'  => 'sCustomPriceReductionModule',
+            'name'  => 'reduction-percent',
             'type'  => 'str',
-            'value' => 'custom_price_reduction',
+            'value' => '%',
             'position' => 1,
-        ),
+        )
     ),
     'controllers' => array(
         'CustomPriceReductionSettingsController' => OxidEsales\CustomPriceReduction\Controller\MainController::class,
-    ),
+    )
 );

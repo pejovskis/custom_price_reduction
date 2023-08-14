@@ -1,6 +1,6 @@
 {
   "name": "oxid-esales/custom-price-reduction",
-  "description": "Reduction the price of a custom product | -> 10%",
+  "description": "Reduction the price of a custom product",
   "type": "oxideshop-module",
   "authors": [
     {
