@@ -2,64 +2,38 @@
 
 namespace OxidEsales\CustomPriceReduction\Controller;
 
-use \Symfony\Component\Yaml\Yaml;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
+
 
 class MainController
 {
-    // Obtain the Artnum Value from the .yaml file || From the Configuration panel's Module
-    public function getYamlArtnumValue() : string
+
+    // Retrieve the Artikel Number given in the Admin Configuration Panel | Fieldname: "sCustomPriceReductionModule"
+    public function retrieveArtikelNum()
     {
-        // .yaml file location
-        $yamlFilePath = '/var/www/html/oxid/var/configuration/shops/1/modules/custom_price_reduction.yaml';
+        $moduleSettingService = ContainerFactory::getInstance()
+            ->getContainer()
+            ->get(ModuleSettingServiceInterface::class);
 
-        // Get content from the .yaml
-        $yamlContent = file_get_contents($yamlFilePath);
+        $artNum = $moduleSettingService->getString('sCustomPriceReductionModule', 'custom_price_reduction');
 
-        // Parse the yaml content
-        $moduleSettings = Yaml::parse($yamlContent);
-
-        // Check if the setting exists and retrieve the value
-        $sReducedProductArtNum = $moduleSettings['moduleSettings']['sReducedProductArtNum']['value'] ?? '';
-
-        return $sReducedProductArtNum;
+        return $artNum;
     }
 
-    // Reduce the product's price
-    public function applyPriceReduction($product): void
+    // ** UPDATED new method without deprecation ** Retrieve Product ID from the database
+    public static function getProductIdByArtNum($artNum): ?string
     {
-        // Get original price && set new 10% reduced price
-        $currentPrice = $product->getPrice()->getBruttoPrice(); // Call methods on the product object
-        $reductionAmount = $currentPrice * 0.10; // 10% reduction
-        $newPrice = $currentPrice - $reductionAmount;
+        $container = ContainerFactory::getInstance()->getContainer();
+        $queryBuilderFactory = $container->get(QueryBuilderFactoryInterface::class);
+        $queryBuilder = $queryBuilderFactory->create();
+        $queryBuilder->select('oxid')
+            ->from('oxarticles')
+            ->where('oxartnum = :artNum')
+            ->setParameter('artNum', $artNum);
 
-        // Update the price with discount
-        $product->oxarticles__oxprice = new \OxidEsales\Eshop\Core\Field($newPrice);
-
-        // Save the product
-        $product->save();
-
-    }
-
-    // Set back the original price
-    public function retrievePriceReduction($product) : void
-    {
-        // Get original price && set new 10% reduced price
-        $currentPrice = $product->getPrice()->getBruttoPrice();
-        $originalPrice = $currentPrice / (0.90);
-
-        // Update the price to the original one
-        $product->oxarticles__oxprice = new \OxidEsales\Eshop\Core\Field ( $originalPrice );
-
-        //Save the product
-        $product->save();
-    }
-
-    // This one is from 6.0 ! -> Should be used the Factory Container -> Look it up in the 7.0 Version Docu, by searching Database
-    // Get the Artnum from the DB
-    public static function getProductIdByArtNum($artNum) : ?string {
-        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
-        $query = "SELECT oxid FROM oxarticles WHERE oxartnum = ?";
-        return $database->getOne($query, [$artNum]);
+        return $queryBuilder->execute()->fetchColumn();
     }
 
 }
