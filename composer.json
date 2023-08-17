@@ -1,0 +1,21 @@
+{
+  "name": "oxid-esales/custom-price-reduction",
+  "description": "Reduction the price of a custom product",
+  "type": "oxideshop-module",
+  "authors": [
+    {
+      "name": "Pejovski Sashko",
+      "email": "pejovski2@gmail.com"
+    }
+  ],
+  "require": {
+    "oxid-esales/oxideshop-ce": "^v7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OxidEsales\\CustomPriceReduction\\": ""
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
