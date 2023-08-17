@@ -13,7 +13,7 @@ class Article extends \OxidEsales\Eshop\Application\Model\Article
     public function getPrice($dAmount = 1)
     {
         $currentHour = (int) date('G');
-        $currentMinute = (int) date('i'); // Test purposes
+        //$currentMinute = (int) date('i'); // Test purposes
 
         // Get the original price
         $originalPrice = parent::getPrice($dAmount);
